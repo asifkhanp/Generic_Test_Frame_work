@@ -1,0 +1,28 @@
+{
+  "Board Configuration":
+  {
+    "Board": "NRF5340",
+    "Transport": "Serial",
+    "PortNumber": "COM5"
+  },
+
+  "Testcase":
+  [
+    {
+      "TestId": "01",
+      "TestName": "Advertise"
+    },
+    {
+      "TestId": "02",
+      "TestName": "Connect"
+    },
+    {
+      "TestId": "03",
+      "TestName": "Disconnect"
+    },
+    {
+      "TestId": "04",
+      "TestName": "Device Name"
+    }
+  ]
+}
