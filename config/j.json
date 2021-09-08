@@ -1,0 +1,14 @@
+{
+
+    "Board": {
+        "Board": "NRF5340",
+        "Transport": "Serial",
+        "PortNumber": "COM5"
+    },
+
+    "Testcases": {
+        "Test01": "Advertise",
+        "Test02": "Connect",
+        "Test03": "Disconnect"
+    }
+}
