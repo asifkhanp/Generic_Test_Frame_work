@@ -93,5 +93,4 @@ class JsonMessages:
             json_object = json.dumps(list, indent=4)
             fptr.write(json_object)
 if __name__ == "__main__":
-
-    pass
+    print("Json Report Messages")
