@@ -8,7 +8,7 @@ import os
 from time import sleep
 
 from Template.basetest import TestBase
-from Testcase.Jsoon_messages import JsonMessages
+from Reports.Json_report_messages import JsonMessages
 
 
 class AdvertiseTest(TestBase):
@@ -19,7 +19,7 @@ class AdvertiseTest(TestBase):
         super().__init__()
         sys.path.append(os.getcwd())
         self.result_advertise = None
-        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        filepath = os.path.join(os.getcwd(), './Reports/json_report')
         self.json_obj = JsonMessages(filepath)
 
     def run(self):
@@ -35,7 +35,6 @@ class AdvertiseTest(TestBase):
             print(f"====>Advertisement for DIS Application Successfully")
             print(f" Testcase Passed")
             self.json_obj.advertise_pass()
-            return True
 
         else:
             print("====>Sorry There is some issue in Staring Advertisement")

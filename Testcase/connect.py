@@ -8,7 +8,7 @@ import os
 from time import sleep
 
 from Template.basetest import TestBase
-from Testcase.Jsoon_messages import JsonMessages
+from Reports.Json_report_messages import JsonMessages
 
 
 class ConnectTest(TestBase):
@@ -19,7 +19,7 @@ class ConnectTest(TestBase):
         super().__init__()
         sys.path.append(os.getcwd())
         self.result_connect = None
-        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        filepath = os.path.join(os.getcwd(), './Reports/json_report')
         self.json_obj = JsonMessages(filepath)
 
     def run(self):

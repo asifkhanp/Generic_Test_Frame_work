@@ -8,8 +8,8 @@ import os
 from time import sleep
 
 from Template.basetest import TestBase
-from Testcase.Html import HtmlReport
-from Testcase.Jsoon_messages import JsonMessages
+from Reports.Html import HtmlReport
+from Reports.Json_report_messages import JsonMessages
 
 
 class DisconnectTest(TestBase):
@@ -19,8 +19,9 @@ class DisconnectTest(TestBase):
     def __init__(self):
         super().__init__()
         sys.path.append(os.getcwd())
-        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        filepath = os.path.join(os.getcwd(), './Reports/json_report')
         self.json_obj = JsonMessages(filepath)
+        self.count = 0
 
     def run(self):
         super().run()
@@ -33,9 +34,12 @@ class DisconnectTest(TestBase):
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
         if data:
             print(f"====>Advertisement for DIS Application Successfully")
+            self.json_obj.advertise_pass()
+            self.count += 1
         else:
             print("====>Sorry There is some issue in Staring Advertisement")
             print("====>Testcase Failed")
+            self.json_obj.advertise_fail()
 
         print("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
         for i in range(100):
@@ -45,10 +49,13 @@ class DisconnectTest(TestBase):
             data = mytest.dut.confirm_message("CONNECT")
             if data:
                 print("\n====>Mobile APP and NRF Board Connected Successfullly")
+                self.json_obj.connect_pass()
+                self.count +=1
                 break
         else:
             print("\n====>Connection Failed between Mobile APP and NRF Board")
             print("\n====>Testcase Failed")
+            self.json_obj.connect_fail()
 
         print("\n\nWaiting for the Mobile App to DISConnect with the Board  MAX Duration : 25 Seconds \n")
         for i in range(100):
@@ -59,11 +66,15 @@ class DisconnectTest(TestBase):
             if data:
                 print("\n====>Mobile APP and NRF Board DISConnected Successfullly")
                 self.json_obj.disconnect_pass()
+                self.count += 1
                 break
         else:
             print("\n====>Connection Failed between Mobile APP and NRF Board")
             self.json_obj.disconnect_fail()
             print("\nTestcase Failed")
+            print(f'count is{self.count}')
+            if self.count == 1:
+                self.json_obj.connect_fail()
 
         mytest.cleanup()
 
