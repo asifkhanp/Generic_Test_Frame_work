@@ -4,11 +4,11 @@ Test Automation Framework
 """
 
 import sys
-import json
 import os
 from time import sleep
 
 from Template.basetest import TestBase
+from Testcase.Jsoon_messages import JsonMessages
 
 
 class AdvertiseTest(TestBase):
@@ -19,6 +19,8 @@ class AdvertiseTest(TestBase):
         super().__init__()
         sys.path.append(os.getcwd())
         self.result_advertise = None
+        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        self.json_obj = JsonMessages(filepath)
 
     def run(self):
         super().run()
@@ -32,30 +34,13 @@ class AdvertiseTest(TestBase):
         if data:
             print(f"====>Advertisement for DIS Application Successfully")
             print(f" Testcase Passed")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "PASS",
-                        "Test Name": "Advertise"
-                    }]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
+            self.json_obj.advertise_pass()
             return True
 
         else:
             print("====>Sorry There is some issue in Staring Advertisement")
             print("====>Testcase Failed")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "FAIL",
-                        "Test Name": "Advertise"
-                    }]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
-            self.result_advertise = False
+            self.json_obj.advertise_fail()
             mytest.cleanup()
             return False
 
