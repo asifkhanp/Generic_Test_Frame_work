@@ -1,6 +1,6 @@
 {
 
-    "Board": {
+    "Board_Config": {
         "Board": "NRF5340",
         "Transport": "Serial",
         "PortNumber": "COM5"

@@ -4,11 +4,12 @@ Test Automation Framework
 """
 
 import sys
-import json
 import os
 from time import sleep
 
 from Template.basetest import TestBase
+from Testcase.Jsoon_messages import JsonMessages
+
 
 class ConnectTest(TestBase):
     """
@@ -18,6 +19,8 @@ class ConnectTest(TestBase):
         super().__init__()
         sys.path.append(os.getcwd())
         self.result_connect = None
+        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        self.json_obj = JsonMessages(filepath)
 
     def run(self):
         super().run()
@@ -30,32 +33,11 @@ class ConnectTest(TestBase):
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
         if data:
             print(f"====>Advertisement for DIS Application Successfully")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "PASS",
-                        "Test Name": "Advertise"
-                    }
-                ]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
-            self.result_connect = True
+            self.json_obj.advertise_pass()
         else:
             print("====>Sorry There is some issue in Staring Advertisement")
             print("====>Testcase Failed")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "FAIL",
-                        "Test Name": "Advertise"
-                    }
-                ]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
-                print('file created from connected')
-            self.result_connect = False
+            self.json_obj.advertise_fail()
 
         print("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
         for i in range(100):
@@ -66,43 +48,14 @@ class ConnectTest(TestBase):
             if data:
                 print("\n====>Mobile APP and NRF Board Connected Successfullly")
                 print("Testcase Passed")
-                filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-                with open(filepath, 'w') as fptr:
-                    list = [
-                        {
-                            "Results": "PASS",
-                            "Test Name": "Advertise"
-                        },
-                        {
-                            "Results": "PASS",
-                            "Test Name": "Connect"
-                        }
-                    ]
-                    json_object = json.dumps(list, indent=4)
-                    fptr.write(json_object)
-                    print('file created from connect for loop')
+                self.json_obj.connect_pass()
+                break
 
-                    break
-
-        else:
-            print("\n====>Connection Failed between Mobile APP and NRF Board")
-
-            print("\nTestcase Failed")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "PASS",
-                        "Test Name": "Advertise"
-                    },
-                    {
-                        "Results": "FAIL",
-                        "Test Name": "Connect"
-                    }
-                ]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
-        mytest.cleanup()
+            else:
+                print("\n====>Connection Failed between Mobile APP and NRF Board")
+                print("\nTestcase Failed")
+                self.json_obj.connect_fail()
+            mytest.cleanup()
 
 
 if __name__ == "__main__":

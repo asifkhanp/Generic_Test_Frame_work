@@ -4,12 +4,13 @@ Test Automation Framework
 """
 
 import sys
-import json
 import os
 from time import sleep
 
 from Template.basetest import TestBase
 from Testcase.Html import HtmlReport
+from Testcase.Jsoon_messages import JsonMessages
+
 
 class DisconnectTest(TestBase):
     """
@@ -18,6 +19,8 @@ class DisconnectTest(TestBase):
     def __init__(self):
         super().__init__()
         sys.path.append(os.getcwd())
+        filepath = os.path.join(os.getcwd(), './Testcase/json_report')
+        self.json_obj = JsonMessages(filepath)
 
     def run(self):
         super().run()
@@ -55,45 +58,11 @@ class DisconnectTest(TestBase):
             data = mytest.dut.confirm_message("DISCONNECT")
             if data:
                 print("\n====>Mobile APP and NRF Board DISConnected Successfullly")
-                filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-                with open(filepath, 'w') as fptr:
-                    list = [
-                        {
-                            "Results": "PASS",
-                            "Test Name": "Advertise"
-                        },
-                        {
-                            "Results": "PASS",
-                            "Test Name": "Connect"
-                        },
-                        {
-                            "Results": "PASS",
-                            "Test Name": "Disconnect"
-                        }
-                    ]
-                    json_object = json.dumps(list, indent=4)
-                    fptr.write(json_object)
+                self.json_obj.disconnect_pass()
                 break
         else:
             print("\n====>Connection Failed between Mobile APP and NRF Board")
-            filepath = os.path.join(os.getcwd(), './Testcase/json_report')
-            with open(filepath, 'w') as fptr:
-                list = [
-                    {
-                        "Results": "PASS",
-                        "Test Name": "Advertise"
-                    },
-                    {
-                        "Results": "PASS",
-                        "Test Name": "Connect"
-                    },
-                    {
-                        "Results": "FAIL",
-                        "Test Name": "Disconnect"
-                    }
-                ]
-                json_object = json.dumps(list, indent=4)
-                fptr.write(json_object)
+            self.json_obj.disconnect_fail()
             print("\nTestcase Failed")
 
         mytest.cleanup()

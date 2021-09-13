@@ -8,7 +8,7 @@
         "Test Name": "Connect"
     },
     {
-        "Results": "FAIL",
+        "Results": "PASS",
         "Test Name": "Disconnect"
     }
 ]
