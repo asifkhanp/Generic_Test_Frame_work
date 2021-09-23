@@ -1,28 +1,34 @@
 [
     {
         "Results": "PASS",
-        "Test Name": "Advertise"
+        "Test Name": "Advertise",
+        "Time": "2021_09_23-12:47:28_PM"
     }
     ,
     {
         "Results": "PASS",
-        "Test Name": "Advertise"
+        "Test Name": "Advertise",
+        "Time": "2021_09_23-12:47:28_PM"
     },
     {
         "Results": "PASS",
-        "Test Name": "Connect"
+        "Test Name": "Connect",
+        "Time": "2021_09_23-12:47:28_PM"
     }
     ,
     {
         "Results": "PASS",
-        "Test Name": "Advertise"
+        "Test Name": "Advertise",
+        "Time": "2021_09_23-12:47:28_PM"
     },
     {
         "Results": "PASS",
-        "Test Name": "Connect"
+        "Test Name": "Connect",
+        "Time": "2021_09_23-12:47:28_PM"
     },
     {
-        "Results": "PASS",
-        "Test Name": "Secure_connect"
+        "Results": "FAIL",
+        "Test Name": "Secure_connect",
+        "Time": "2021_09_23-12:47:28_PM"
     }
 ]

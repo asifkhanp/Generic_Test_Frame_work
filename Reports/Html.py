@@ -26,7 +26,7 @@ class HtmlReport:
         html_data = f2.read()
 
         # Making Background of row having result with "PASS" as Green
-        html_data = re.sub(r'<table border="1">', '<table border="3" width=40% align="center" height="200">', html_data)
+        html_data = re.sub(r'<table border="1">', '<table border="5" width=40% align="center" height="200">', html_data)
 
         html_data = re.sub(r'<td>PASS</td>', '<tr style="background-color:#32CD32;color:#ffffff;"><td>PASS</td>',
                            html_data)
