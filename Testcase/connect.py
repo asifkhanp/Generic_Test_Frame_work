@@ -1,5 +1,5 @@
 """
-Author : Venkatesan Madappan
+Author : Asif Khan M Pathan
 Test Automation Framework
 """
 
@@ -9,6 +9,7 @@ from time import sleep
 
 from Template.basetest import TestBase
 from Reports.Json_report_messages import JsonMessages
+
 
 class ConnectTest(TestBase):
     """
@@ -31,11 +32,11 @@ class ConnectTest(TestBase):
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
         if data:
             self.logger.info(f"====>Advertisement for DIS Application Successfully")
-            # self.json_obj.advertise_message(True)
+            self.json_obj.json_case(True, "Advertise")
         else:
             self.logger.info("====>Sorry There is some issue in Staring Advertisement")
             self.logger.info("====>Testcase Failed")
-            self.json_obj.advertise_message(False)
+            self.json_obj.json_case(False, "Advertise")
 
         self.logger.info("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
         for i in range(100):
@@ -46,12 +47,12 @@ class ConnectTest(TestBase):
             if data:
                 self.logger.info("\n====>Mobile APP and NRF Board Connected Successfullly")
                 self.logger.info("Testcase Passed")
-                self.json_obj.connect_message(True)
+                self.json_obj.json_case(True, "Connect")
                 break
         else:
             self.logger.info("\n====>Connection Failed between Mobile APP and NRF Board")
             self.logger.info("\nTestcase Failed")
-            self.json_obj.connect_message(False)
+            self.json_obj.json_case(False, "Connect")
 
         mytest.cleanup()
 

@@ -1,5 +1,5 @@
 """
-Author : Venkatesan Madappan
+Author : Asif Khan M Pathan
 Test Automation Framework
 """
 
@@ -9,6 +9,7 @@ from time import sleep
 
 from Template.basetest import TestBase
 from Reports.Json_report_messages import JsonMessages
+
 
 class AdvertiseTest(TestBase):
     """
@@ -29,14 +30,14 @@ class AdvertiseTest(TestBase):
         mytest.dut.send_message("ADVERTISE")
         sleep(0.25)
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
-        if data :
+        if data:
             self.logger.info(f"====>Advertisement for DIS Application Successfully")
             self.logger.info(f" Testcase Passed")
-            # self.json_obj.advertise_message(True)
+            self.json_obj.json_case(True, "Advertise")
         else:
             self.logger.info("====>Sorry There is some issue in Staring Advertisement")
             self.logger.info("====>Testcase Failed")
-            self.json_obj.advertise_message(False)
+            self.json_obj.json_case(False, "Advertise")
 
         mytest.cleanup()
 

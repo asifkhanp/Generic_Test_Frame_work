@@ -2,7 +2,6 @@
 Author : Asif Khan M Pathan
 Test Automation Framework
 """
-
 import json
 
 
@@ -11,38 +10,13 @@ class JsonMessages:
         self.file_path = filepath
         self.list_1 = []
         self.dict_1 = {}
-        self.adv = "Advertise"
-        self.con = "Connect"
-        self.dis = "Disconnect"
-        self.sec = "Secure_connect"
 
-    def advertise_message(self, args):
+    def json_case(self, arg1, test_name):
         with open(self.file_path, 'a') as fptr:
-            if args is True:
-                self.write_file(self.list_1, fptr, True, self.adv)
+            if arg1 is True:
+                self.write_file(self.list_1, fptr, True, test_name)
             else:
-                self.write_file(self.list_1, fptr, False, self.adv)
-
-    def connect_message(self, args):
-        with open(self.file_path, 'a') as fptr:
-            if args is True:
-                self.write_file(self.list_1, fptr, True, self.con)
-            else:
-                self.write_file(self.list_1, fptr, False, self.con)
-
-    def disconnect_message(self, args):
-        with open(self.file_path, 'a') as fptr:
-            if args is True:
-                self.write_file(self.list_1, fptr, True, self.dis)
-            else:
-                self.write_file(self.list_1, fptr, False, self.dis)
-
-    def secure_connect_messages(self, args):
-        with open(self.file_path, 'a') as fptr:
-            if args is True:
-                self.write_file(self.list_1, fptr, True, self.sec)
-            else:
-                self.write_file(self.list_1, fptr, False, self.sec)
+                self.write_file(self.list_1, fptr, False, test_name)
 
     def write_file(self, arg1, arg2, arg3, arg4):
         if arg3 is True:

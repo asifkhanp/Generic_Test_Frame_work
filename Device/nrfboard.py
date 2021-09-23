@@ -1,5 +1,5 @@
 """
-Author : Venkatesan Madappan
+Author : Asif Khan M Pathan
 Test Automation Framework
 """
 from time import sleep
@@ -14,7 +14,6 @@ class NrfBoard(Device):
     NRFBoard Module
     """
     def __init__(self):
-        #super(Device, self).__init__()
         super().__init__()
         self.transport = None
         #print("Device Class")
@@ -30,6 +29,16 @@ class NrfBoard(Device):
         self.transport.open()
         sleep(0.01)
 
+    def get_to_initial_condition(self):
+        self.send_message("ADVERTISE_STOP")
+        data = self.confirm_message("ADVERTISE_STOP_SUCCESSFULL")
+        if data:
+            print("Set to Initial Condition")
+        else:
+            print("Something went wrong")
+
+        self.send_message("CLEAR_BONDING")
+
     def send_message(self, msgstr):
         """
         Send the Message to NRF Board
@@ -37,7 +46,7 @@ class NrfBoard(Device):
         :return: None
         """
         if msgstr in Messages.primitives.keys():
-            message_val = bytes(chr(Messages.primitives[msgstr]), 'ascii')
+            message_val = Messages.data_serialize(msgstr)
             self.transport.send(message_val)
         sleep(0.001)
 
@@ -48,6 +57,13 @@ class NrfBoard(Device):
         """
         return self.transport.receive()
 
+    def clean_received_messages(self):
+        """
+        Clear the Received the Messages from NRF Board through Serial Interface
+        :return: Received bytes
+        """
+        return self.transport.clean_received_messages()
+
     def confirm_message(self, msgstr):
         """
         Confirm the expected message has been received form Board or not
@@ -55,8 +71,8 @@ class NrfBoard(Device):
         :return:
         """
         found = False
-        if self.transport.confirm_message(msgstr) is not None:
-            found = True
+        found, msg = self.transport.confirm_message(msgstr)
+
         return found
 
     def cleanup(self):

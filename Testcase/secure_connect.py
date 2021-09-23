@@ -1,5 +1,5 @@
 """
-Author : Venkatesan Madappan
+Author : Asif Khan M Pathan
 Test Automation Framework
 """
 
@@ -34,16 +34,15 @@ class SecureConnectTest(TestBase):
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
         if data:
             self.logger.info(f"====>Advertisement for DIS Application Successfully")
-            self.json_obj.advertise_message(True)
+            self.json_obj.json_case(True, "Advertise")
         else:
             self.logger.info("====>Sorry There is some issue in Staring Advertisement")
             self.logger.info("====>Testcase Failed")
-            self.json_obj.advertise_message(False)
+            self.json_obj.json_case(False, "Advertise")
 
         self.logger.info("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
 
         mytest.dut.send_message("AUTHENTICATION_CONFIRMED")
-        #mytest.dut.send_message("AUTHENTICATION_CANCELED")
 
         for i in range(100):
             print(".", end="")
@@ -53,12 +52,12 @@ class SecureConnectTest(TestBase):
             if data:
                 self.logger.info("\n====>Mobile APP and NRF Board Connected Successfully")
                 self.logger.info("Connect Passed")
-                self.json_obj.connect_message(True)
+                self.json_obj.json_case(True, "Connect")
                 break
         else:
             self.logger.info("\n====>Connection Failed between Mobile APP and NRF Board")
             self.logger.info("\nConnect Failed")
-            self.json_obj.connect_message(False)
+            self.json_obj.json_case(False, "Connect")
 
         time.sleep(5)
         mytest.dut.send_message("GET_SECURITY_LEVEL")
@@ -68,11 +67,11 @@ class SecureConnectTest(TestBase):
             data = mytest.dut.confirm_message("BT_SECURITY_L4")
             if data:
                 self.logger.info("\nSecurity Level is 4\nSecure Connect Test has Passed\n")
-                self.json_obj.secure_connect_messages(True)
+                self.json_obj.json_case(True, "Secure_connect")
                 break
         else:
             self.logger.info("\nSecure Connect Test has Failed\n")
-            self.json_obj.secure_connect_messages(False)
+            self.json_obj.json_case(False, "Secure_connect")
         mytest.cleanup()
 
 

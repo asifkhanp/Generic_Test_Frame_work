@@ -1,0 +1,13 @@
+INFO:root:TestCase Base
+INFO:root:Run the Test Case
+INFO:root:====>Advertisement for DIS Application Successfully
+INFO:root:
+
+Waiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds 
+
+INFO:root:
+====>Mobile APP and NRF Board Connected Successfully
+INFO:root:Connect Passed
+INFO:root:
+Secure Connect Test has Failed
+

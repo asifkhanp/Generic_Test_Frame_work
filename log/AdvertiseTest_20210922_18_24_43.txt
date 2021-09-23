@@ -1,0 +1,4 @@
+INFO:root:TestCase Base
+INFO:root:Run the Test Case
+INFO:root:====>Sorry There is some issue in Staring Advertisement
+INFO:root:====>Testcase Failed

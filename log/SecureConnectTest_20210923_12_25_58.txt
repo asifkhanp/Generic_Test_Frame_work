@@ -1,0 +1,15 @@
+INFO:root:TestCase Base
+INFO:root:Run the Test Case
+INFO:root:====>Sorry There is some issue in Staring Advertisement
+INFO:root:====>Testcase Failed
+INFO:root:
+
+Waiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds 
+
+INFO:root:
+====>Mobile APP and NRF Board Connected Successfully
+INFO:root:Connect Passed
+INFO:root:
+Security Level is 4
+Secure Connect Test has Passed
+

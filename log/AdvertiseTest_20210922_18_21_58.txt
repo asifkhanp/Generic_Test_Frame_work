@@ -1,0 +1,4 @@
+INFO:root:TestCase Base
+INFO:root:Run the Test Case
+INFO:root:====>Advertisement for DIS Application Successfully
+INFO:root: Testcase Passed

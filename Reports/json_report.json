@@ -1,11 +1,11 @@
 [
     {
-        "Results": "FAIL",
+        "Results": "PASS",
         "Test Name": "Advertise"
     }
     ,
     {
-        "Results": "FAIL",
+        "Results": "PASS",
         "Test Name": "Advertise"
     },
     {
@@ -14,7 +14,7 @@
     }
     ,
     {
-        "Results": "FAIL",
+        "Results": "PASS",
         "Test Name": "Advertise"
     },
     {
@@ -22,7 +22,7 @@
         "Test Name": "Connect"
     },
     {
-        "Results": "FAIL",
+        "Results": "PASS",
         "Test Name": "Secure_connect"
     }
 ]
