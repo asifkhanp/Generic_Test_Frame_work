@@ -7,13 +7,16 @@ import os
 from json2html import *
 import json
 
-class HtmlReport():
-    def generate_report(self,f):
+
+class HtmlReport:
+
+    def generate_report(self, f):
         # Load the file
-        Data = json.loads(f.read())
+
+        data = json.loads(f.read())
 
         # Convert Json file to Html
-        html_report = json2html.convert(Data)
+        html_report = json2html.convert(data)
 
         # Open/Create another file to write the converted html code
         html_file = os.path.join(os.getcwd(), './Reports/html_report.html')
@@ -23,12 +26,14 @@ class HtmlReport():
         html_data = f2.read()
 
         # Making Background of row having result with "PASS" as Green
-        html_data = re.sub(r'<table border="1">', '<table border="3" width=40% align="center" height="200">', html_data )
+        html_data = re.sub(r'<table border="1">', '<table border="3" width=40% align="center" height="200">', html_data)
 
-        html_data = re.sub(r'<td>PASS</td>', '<tr style="background-color:#32CD32;color:#ffffff;"><td>PASS</td>', html_data)
+        html_data = re.sub(r'<td>PASS</td>', '<tr style="background-color:#32CD32;color:#ffffff;"><td>PASS</td>',
+                           html_data)
 
         # Making Background of row having result with "FAIL" as Red
-        html_data = re.sub(r'<td>FAIL</td>', '<tr style="background-color:#ff0000;color:#ffffff;"><td>FAIL</td>', html_data)
+        html_data = re.sub(r'<td>FAIL</td>', '<tr style="background-color:#ff0000;color:#ffffff;"><td>FAIL</td>',
+                           html_data)
         print('HTML Reporting Creating.....')
 
         # opening the HTMl report in write mode
@@ -46,12 +51,18 @@ class HtmlReport():
         f3.write(html_template)
         f3.write(html_data)
 
-
     def run(self):
-            file_name = os.path.join(os.getcwd(), './Reports/json_report')#input('Enter The File Name With Extension: ')
-            print('***********************************************************************')
-            with open(file_name, 'r') as fp:
-                self.generate_report(fp)
+        file_name = os.path.join(os.getcwd(), './Reports/json_report.json')
+        print('***********************************************************************')
+        with open(file_name, 'r+') as file:
+            filedata = file.read()
+            n = ']' + '['
+            filedata = filedata.replace(n, '    ,')
+        with open(file_name, 'w') as file:
+            file.write(filedata)
+        with open(file_name, 'r') as fp:
+            self.generate_report(fp)
+
 
 if __name__ == "__main__":
     obj = HtmlReport()

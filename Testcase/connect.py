@@ -1,5 +1,5 @@
 """
-Author : Asif Khan M Pathan
+Author : Venkatesan Madappan
 Test Automation Framework
 """
 
@@ -10,7 +10,6 @@ from time import sleep
 from Template.basetest import TestBase
 from Reports.Json_report_messages import JsonMessages
 
-
 class ConnectTest(TestBase):
     """
     Connect TestCase
@@ -18,8 +17,7 @@ class ConnectTest(TestBase):
     def __init__(self):
         super().__init__()
         sys.path.append(os.getcwd())
-        self.result_connect = None
-        filepath = os.path.join(os.getcwd(), './Reports/json_report')
+        filepath = os.path.join(os.getcwd(), './Reports/json_report.json')
         self.json_obj = JsonMessages(filepath)
 
     def run(self):
@@ -32,30 +30,30 @@ class ConnectTest(TestBase):
 
         data = mytest.dut.confirm_message("ADVERTISE_SUCCESSFULL")
         if data:
-            print(f"====>Advertisement for DIS Application Successfully")
-            self.json_obj.advertise_pass()
+            self.logger.info(f"====>Advertisement for DIS Application Successfully")
+            # self.json_obj.advertise_message(True)
         else:
-            print("====>Sorry There is some issue in Staring Advertisement")
-            print("====>Testcase Failed")
-            self.json_obj.advertise_fail()
+            self.logger.info("====>Sorry There is some issue in Staring Advertisement")
+            self.logger.info("====>Testcase Failed")
+            self.json_obj.advertise_message(False)
 
-        print("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
+        self.logger.info("\n\nWaiting for the Mobile App to Connect with the Board  MAX Duration : 25 Seconds \n")
         for i in range(100):
             print(".", end="")
             sys.stdout.flush()
             sleep(0.25)
             data = mytest.dut.confirm_message("CONNECT")
             if data:
-                print("\n====>Mobile APP and NRF Board Connected Successfullly")
-                print("Testcase Passed")
-                self.json_obj.connect_pass()
+                self.logger.info("\n====>Mobile APP and NRF Board Connected Successfullly")
+                self.logger.info("Testcase Passed")
+                self.json_obj.connect_message(True)
                 break
+        else:
+            self.logger.info("\n====>Connection Failed between Mobile APP and NRF Board")
+            self.logger.info("\nTestcase Failed")
+            self.json_obj.connect_message(False)
 
-            else:
-                print("\n====>Connection Failed between Mobile APP and NRF Board")
-                print("\nTestcase Failed")
-                self.json_obj.connect_fail()
-            mytest.cleanup()
+        mytest.cleanup()
 
 
 if __name__ == "__main__":
@@ -63,5 +61,3 @@ if __name__ == "__main__":
     sys.path.append(os.getcwd())
     mytest = ConnectTest()
     mytest.run()
-
-
